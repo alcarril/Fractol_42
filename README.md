@@ -122,6 +122,14 @@ make
 
 > Note: If the window is blank, try lowering the iteration count.
 
+## Highly recommended
+
+Se recomienda escuchar estos artistas mientras se renderizan fractales:
+
+- https://music.youtube.com/playlist?list=OLAK5uy_nWZwM5bpCPKP4TqnX0ZkxbhGxPb34HdsY
+
+<img src="docs/art/Screenshot%20from%202026-02-01%2008-10-02.png" alt="Playlist cover" style="width: 160px; max-width: 100%;" />
+
 
 ## 🧩 Julia parameters
 
@@ -295,6 +303,40 @@ Use these values to explore different looks. Replace the image paths with your o
 ---
 
 # Features
+## 🖼️ Image scaling in the render pipeline
+
+
+**Fractals are rendered by mapping each screen pixel** $(x, y)$ **to a point in the complex plane.** This mapping is a **linear scaling** between two spaces:
+
+$$
+ x_c = x_{min} + \frac{x}{W} (x_{max} - x_{min}), \quad y_c = y_{min} + \frac{y}{H} (y_{max} - y_{min})
+$$
+
+Where $W$ and $H$ are the **window dimensions**, and $(x_{min}, x_{max}, y_{min}, y_{max})$ define the **current viewport**. Zoom and pan update the viewport bounds, which effectively rescales the complex-plane window without changing the screen resolution.
+
+### 🔍 Zoom transformation
+
+The zoom operation applies an **affine transformation** centered at the cursor position:
+
+$$
+ p' = c + s \cdot (p - c)
+$$
+
+Where $c$ is the **zoom center** and $s$ is the **scale factor**. **Translation** is applied by adding a displacement vector to the viewport bounds.
+
+### 🎯 Practical effects
+
+- 🔎**Zoom in** : shrink the viewport range around the cursor.
+- 🔭**Zoom out** : expand the viewport range around the cursor.
+- ↔️**Pan** : translate the viewport range in $x$ and $y$.
+
+### ❓ Why scale pixels to the set?
+
+For **continuous sets** like Mandelbrot and Julia, we iterate **every pixel** and **map it to a complex point**. This **pixel-to-set approach** avoids holes and aliasing that appear when projecting sparse sets onto discrete screens. It guarantees **full coverage** and **consistent coloring** across the image.
+
+
+
+<img src="docs/img_mlx/ESCALAS.png" alt="Scaling diagram" style="width: 100%; max-width: 100%;" />
 
 ## 🧰 MLX and X11 integration
 
@@ -354,40 +396,6 @@ Input travels from hardware to drivers, then to the kernel, into the X server (X
 In practice, input events update the viewport parameters, the render loop redraws the fractal into the image buffer, and `mlx_put_image_to_window` presents the frame.
 
 
-## 🖼️ Image scaling in the render pipeline
-
-
-**Fractals are rendered by mapping each screen pixel** $(x, y)$ **to a point in the complex plane.** This mapping is a **linear scaling** between two spaces:
-
-$$
- x_c = x_{min} + \frac{x}{W} (x_{max} - x_{min}), \quad y_c = y_{min} + \frac{y}{H} (y_{max} - y_{min})
-$$
-
-Where $W$ and $H$ are the **window dimensions**, and $(x_{min}, x_{max}, y_{min}, y_{max})$ define the **current viewport**. Zoom and pan update the viewport bounds, which effectively rescales the complex-plane window without changing the screen resolution.
-
-### 🔍 Zoom transformation
-
-The zoom operation applies an **affine transformation** centered at the cursor position:
-
-$$
- p' = c + s \cdot (p - c)
-$$
-
-Where $c$ is the **zoom center** and $s$ is the **scale factor**. **Translation** is applied by adding a displacement vector to the viewport bounds.
-
-### 🎯 Practical effects
-
-- 🔎**Zoom in** : shrink the viewport range around the cursor.
-- 🔭**Zoom out** : expand the viewport range around the cursor.
-- ↔️**Pan** : translate the viewport range in $x$ and $y$.
-
-### ❓ Why scale pixels to the set?
-
-For **continuous sets** like Mandelbrot and Julia, we iterate **every pixel** and **map it to a complex point**. This **pixel-to-set approach** avoids holes and aliasing that appear when projecting sparse sets onto discrete screens. It guarantees **full coverage** and **consistent coloring** across the image.
-
-
-
-<img src="docs/img_mlx/ESCALAS.png" alt="Scaling diagram" style="width: 100%; max-width: 100%;" />
 
 <br>
 
