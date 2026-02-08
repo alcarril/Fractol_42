@@ -122,13 +122,6 @@ make
 
 > Note: If the window is blank, try lowering the iteration count.
 
-## Highly recommended
-
-Se recomienda escuchar estos artistas mientras se renderizan fractales:
-
-- https://music.youtube.com/playlist?list=OLAK5uy_nWZwM5bpCPKP4TqnX0ZkxbhGxPb34HdsY
-
-<img src="docs/art/Screenshot%20from%202026-02-01%2008-10-02.png" alt="Playlist cover" style="width: 160px; max-width: 100%;" />
 
 
 ## 🧩 Julia parameters
@@ -305,7 +298,6 @@ Use these values to explore different looks. Replace the image paths with your o
 # Features
 ## 🖼️ Image scaling in the render pipeline
 
-
 **Fractals are rendered by mapping each screen pixel** $(x, y)$ **to a point in the complex plane.** This mapping is a **linear scaling** between two spaces:
 
 $$
@@ -326,17 +318,16 @@ Where $c$ is the **zoom center** and $s$ is the **scale factor**. **Translation*
 
 ### 🎯 Practical effects
 
-- 🔎**Zoom in** : shrink the viewport range around the cursor.
-- 🔭**Zoom out** : expand the viewport range around the cursor.
-- ↔️**Pan** : translate the viewport range in $x$ and $y$.
+- **Zoom in** : shrink the viewport range around the cursor.
+- **Zoom out** : expand the viewport range around the cursor.
+- **Pan** : translate the viewport range in $x$ and $y$.
 
 ### ❓ Why scale pixels to the set?
 
 For **continuous sets** like Mandelbrot and Julia, we iterate **every pixel** and **map it to a complex point**. This **pixel-to-set approach** avoids holes and aliasing that appear when projecting sparse sets onto discrete screens. It guarantees **full coverage** and **consistent coloring** across the image.
 
+> **Note:** 📝 More: [My article on Notion](https://broken-snowdrop-f03.notion.site/Renderizado-de-imegenes-y-escalas-2fbb80eb3d8880d69491dbec05c804ae).
 
-
-<img src="docs/img_mlx/ESCALAS.png" alt="Scaling diagram" style="width: 100%; max-width: 100%;" />
 
 ## 🧰 MLX and X11 integration
 
@@ -400,7 +391,8 @@ In practice, input events update the viewport parameters, the render loop redraw
 <br>
 
 ---
-# Resources
+
+# ℹ️​ Resources
 
 ### Mathematics
 
@@ -415,15 +407,14 @@ In practice, input events update the viewport parameters, the render loop redraw
 
 ---
 
-# Author
+# 👨‍💻 Author
 
-👨‍💻 **Alejandro Carrillo (alcarril)**  
-[![GitHub](https://img.shields.io/badge/GitHub-alcarril-333?style=flat-square&logo=github)](https://github.com/alcarril)
+**Alejandro Carrillo** [@alcarril](https://github.com/alcarril)
 
 
 ---
 
-## License
+## 📜 License
 
 This project does not include a license file in the repository.
 
